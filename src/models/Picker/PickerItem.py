@@ -4,7 +4,7 @@ from sqlalchemy import DateTime, Enum, Float, ForeignKeyConstraint, Index, Integ
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 import datetime
 
-from src.Models.Picker import PickerList
+from src.models.Picker import PickerList
 
 
 class Base(DeclarativeBase):
@@ -23,4 +23,4 @@ class PickerItem(Base):
     list_id: Mapped[int] = mapped_column(Integer, primary_key=True)
     probability: Mapped[Optional[float]] = mapped_column(Float)
 
-    list: Mapped['PickerList'] = relationship('PickerList', back_populates='picker_item')
+    # list: Mapped['PickerList'] = relationship('PickerList', back_populates='picker_item')

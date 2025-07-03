@@ -1,16 +1,25 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:192508Qp!@47.94.95.8/vertexa'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # 这个不关会有警告！
-db = SQLAlchemy(app)
+from src.app.config import Config
+from src.app.extensions import db
 
 
-@app.route('/')
-def hello_world():  # put application's code here
-    return 'Hello World!'
+def create_app():
+    app = Flask(__name__)
 
+    #添加配置
+    app.config.from_object(Config)
 
-if __name__ == '__main__':
-    app.run()
+    # 初始化扩展
+    db.init_app(app)
+
+    # 注册蓝图
+    from src.bps.PickerRouter import picker_bp
+    app.register_blueprint(picker_bp,url_prefix='/picker')
+
+    # 添加初始路由
+    @app.route('/')
+    def hello_world():
+        return 'Hello World!'
+
+    return app
