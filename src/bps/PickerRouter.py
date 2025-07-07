@@ -33,7 +33,7 @@ def insert_list():
     return PickerService.insert_list()
 
 # 重命名名单
-@picker_bp.route('/rename_list/<int:list_id>/<str:name>', methods=['GET','POST'])
+@picker_bp.route('/rename_list/<int:list_id>/<string:name>', methods=['GET','POST'])
 def rename_list(list_id,name):
     return PickerService.delete_list(list_id)
 
